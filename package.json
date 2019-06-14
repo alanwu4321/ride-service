@@ -1,0 +1,23 @@
+{
+  "name": "ridesservice",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.1.0",
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "errorhandler": "^1.3.x",
+    "express": "^4.16.2",
+    "http-errors": "~1.6.3",
+    "jade": "^1.9.x",
+    "mongodb": "~2.0",
+    "mongoosastic": "^4.4.1",
+    "mongoose": "^5.5.12",
+    "morgan": "~1.9.1"
+  }
+}
