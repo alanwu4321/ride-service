@@ -1,4 +1,4 @@
-## Rideshare API Service 🚗
+## Rides API Service 🚗
 
 
 
