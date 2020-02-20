@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var userLib = require('../lib/_UserDB')
-var rideLib = require('../lib/_RideDB')
-// var rideMod = require('../modules/_RideMOD')
-
+var userLib = require('../lib/_userDb')
+var rideLib = require('../lib/_rideDb')
 
 /**
  * @api {post} /rides/  Create new Ride
  * @apiName createRide
+ * @apiDescription Create Rides for user 
  * @apiGroup Rides
  *
  * @apiParam {String} _id Users unique ID.
@@ -18,11 +17,8 @@ var rideLib = require('../lib/_RideDB')
  * @apiParam {String} datetime Datetime.
  * @apiParam {Array} note Special Notes.
  * @apiParam {Boolean} isFB Whether it is a Facebook post or not.
- * @apiParam {String} link link.
- * 
- * 
- * 
- *
+ * @apiParam {String} link URL to the original post.
+
  * @apiSuccess {String} firstname Firstname of the User.
 
  */
@@ -65,12 +61,24 @@ router.get('/:ride_id', async (req, res, next) => {
 });
 
 
+/**
+ * @api {get} /rides?origin=&destination=&startDate=&endDate=  Filter Rides
+ * @apiName filterRides
+ * @apiDescription Get rides filtered by origin, destination, startDate or endDate
+ * @apiGroup Rides
+ *
+ * @apiParam {String} origin Origin location.
+ * @apiParam {String} destination Destination location.
+ * @apiParam {String} startDate Start Date.
+ * @apiParam {String} endDate End Date.
+
+ * @apiSuccess {array} Filtered rides based on query parameters
+
+ */
+
 router.get('/', async function (req, res, next) {
   try{
   filters = req.query
-  console.log(filters)
-  console.log(req.header("Authorization"))
-  console.log(req.header("currentUserID"))
   //endDate is the target date if start date not specified then it is now to the day of the ride
   response = await rideLib.filterRides(filters.origin,filters.destination,filters.startDate,filters.endDate)
   res.send(response);
@@ -80,34 +88,38 @@ router.get('/', async function (req, res, next) {
 });
 
 
-// get rides/:_id from mongo
+/**
+ * @api {get} /rides/:user_id/all  Get All Rides
+ * @apiName allRides
+ * @apiDescription Get all rides that belong to a user 
+ * @apiGroup Rides
+ *
+ * @apiParam {String} user_id User ID.
+
+ * @apiSuccess {array} All rides that belong to the user 
+ */
 
 router.get('/:user_id/all', async function (req, res, next) {
   var user_id = req.params.user_id
   res.send(user_id);
 });
 
-// GET recommended rides
 
-// IF booked ride AND it's odd number
-// search the ride_id and search again with to, from and datetime of the return ride
+/**
+ * @api {get} /rides/:user_id/recommend  Get Recommended Rides
+ * @apiName recommendRides
+ * @apiDescription Get recommended rides based on user preference and currently booked rides
+ * @apiGroup Rides
+ *
+ * @apiParam {String} user_id User ID.
 
-// ELSE fav_from, fav_to from user object and show from now to 1 week later
+ * @apiSuccess {array} Recommended Rides based on user preference and current booked rides
+ */
 
 
-// var results = () => {
-//   if (true) {
-//     return "5"
-//   } else {
-//     return "4"
-//   }
-// }
-
-// console.log(results())
-// rideLib.filterRides("waterloo", "toronto").then(result=>{
-//   console.log(result)
-// })
-
+// =========== LOGIC ==============
+// 1. If booked ride AND it's odd number search the ride_id and search again with to, from and datetime of the return ride
+// 2. Else fav_from, fav_to from user object and show from now to 1 week later
 router.get('/:user_id/recommend', async function (req, res, next) {
   try {
     var user_id = req.params.user_id
@@ -124,14 +136,11 @@ router.get('/:user_id/recommend', async function (req, res, next) {
         var {
           _source
         } = await rideLib.getRidebyID(booked[booked.length - 1])
-        // console.log(_source)
         tempDate = new Date(_source.datetime)
         tempDate.setDate(tempDate.getDate()+7);
         predictReturnDate = tempDate.toISOString().replace(/.000(.*)$/,"")
-
         tempResult = await rideLib.filterRides(_source.destination, _source.origin, _source.datetime, predictReturnDate);
         return (tempResult.length == 0) ? await rideLib.filterRides(fav_origin, fav_destination) : tempResult;
-
       } else {
         console.log("no date filter")
         return await rideLib.filterRides(fav_origin, fav_destination);
@@ -148,6 +157,35 @@ router.get('/:user_id/recommend', async function (req, res, next) {
     });
   }
 });
+
+
+/**
+ * @api {get} /rides/:user_id/all  Get All Rides
+ * @apiName allRides
+ * @apiDescription Get all rides that belong to a user 
+ * @apiGroup Rides
+ *
+ * @apiParam {String} user_id User ID.
+
+ * @apiSuccess {array} All rides that belong to the user 
+ */
+
+router.get('/:user_id/all', async function (req, res, next) {
+  var user_id = req.params.user_id
+  res.send(user_id);
+});
+
+
+/**
+ * @api {get} /rides/:user_id/upcoming  Get Upcomming Rides
+ * @apiName upcomingRides
+ * @apiDescription Get upcoming rides for a user
+ * @apiGroup Rides
+ *
+ * @apiParam {String} user_id User ID.
+
+ * @apiSuccess {array} Upcomming rides for a user
+ */
 
 
 // GET upcoming user array of rides 
@@ -180,8 +218,5 @@ router.get('/:user_id/upcoming', async function (req, res, next) {
 
 }
 });
-
-
-
 
 module.exports = router;
