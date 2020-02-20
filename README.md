@@ -15,3 +15,7 @@ GET /rides/:ride_id
 GET /rides/:user_id/recommend
 GET /rides/:user_id/upcoming
 ```
+
+### Demo
+
+https://alan-wu.com/rideshare-demo.mp4
