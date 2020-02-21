@@ -1,13 +1,11 @@
 ## Rides API Service 🚗
 
- [API Documentation]( https://uwrideshare.com/apidoc/index.html)
- [Demo](https://uwrideshare/demo.mov)
-
+### Tech Overview
 
 <details>
   
  <summary>
-<i>Architecture Overview</i>
+<i>Architecture & Design</i>
 </summary>
 
 <br>
@@ -16,6 +14,12 @@
 ![Schema](https://uwrideshare.com/design.png)
 
  </details>
+ 
+
+ [API Documentation]( https://uwrideshare.com/apidoc/index.html)
+ 
+
+ [Demo](https://uwrideshare/demo.mov)
  
  
 ### Mission
