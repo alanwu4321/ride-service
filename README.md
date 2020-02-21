@@ -1,7 +1,7 @@
 ## Rides API Service 🚗
 
  [API Documentation]( https://uwrideshare.com/apidoc/index.html)
- [Demo]( https://uwrideshare.com/apidoc/index.html)
+ [Demo](https://uwrideshare/demo.mov)
 
 
 <details>
@@ -13,7 +13,7 @@
 <br>
   <br>
  
-![Schema](https://uwrideshare/demo.mov)
+![Schema](https://uwrideshare.com/design.png)
 
  </details>
  
