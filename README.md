@@ -16,10 +16,10 @@
  </details>
  
 
- [API Documentation]( https://uwrideshare.com/apidoc/index.html)
+ [API Documentation](https://uwrideshare.com/apidoc/index.html)
  
 
- [Demo](https://uwrideshare/demo.mov)
+ [Demo](https://uwrideshare.com/demo.mp4)
  
  
 ### Mission
