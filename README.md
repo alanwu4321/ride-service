@@ -11,15 +11,15 @@
 <br>
   <br>
  
-![Schema](https://uwrideshare.com/design.png)
+![Schema](https://s3.us-east-2.amazonaws.com/uwrideshare.com/design.png)
 
  </details>
  
 
- [API Documentation](https://uwrideshare.com/apidoc/index.html)
+ [API Documentation](https://s3.us-east-2.amazonaws.com/uwrideshare.com/apidoc/index.html)
  
 
- [Demo](https://uwrideshare.com/demo.mp4)
+ [Demo](https://s3.us-east-2.amazonaws.com/uwrideshare.com/demo.mp4)
  
  
 ### Mission
